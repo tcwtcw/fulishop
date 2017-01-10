@@ -1,10 +1,8 @@
 package cn.ucai.fulishop.bean;
 
-/**
- * Created by Administrator on 2017/1/9 0009.
- */
+import java.io.Serializable;
 
-public class CollectBean {
+public class CollectBean implements Serializable {
 
     /**
      * id : 7672
@@ -12,8 +10,8 @@ public class CollectBean {
      * goodsId : 7672
      * goodsName : 趣味煮蛋模具
      * goodsEnglishName : Kotobuki
-     * goodsThumb : http://121.197.1.20/images/201507/thumb_img/6372_thumb_G_1437108490316.jpg
-     * goodsImg : http://121.197.1.20/images/201507/1437108490034171398.jpg
+     * goodsThumb : http:121.197.1.20/images/201507/thumb_img/6372_thumb_G_1437108490316.jpg
+     * goodsImg : http:121.197.1.20/images/201507/1437108490034171398.jpg
      * addTime : 1442419200000
      */
 
@@ -25,10 +23,6 @@ public class CollectBean {
     private String goodsThumb;
     private String goodsImg;
     private long addTime;
-
-    public CollectBean() {
-        super();
-    }
 
     public int getId() {
         return id;
@@ -106,5 +100,21 @@ public class CollectBean {
                 ", goodsImg='" + goodsImg + '\'' +
                 ", addTime=" + addTime +
                 '}';
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (!(o instanceof CollectBean)) return false;
+
+        CollectBean that = (CollectBean) o;
+
+        return getGoodsId() == that.getGoodsId();
+
+    }
+
+    @Override
+    public int hashCode() {
+        return getGoodsId();
     }
 }

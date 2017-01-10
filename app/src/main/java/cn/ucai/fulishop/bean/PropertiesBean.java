@@ -1,24 +1,9 @@
 package cn.ucai.fulishop.bean;
 
+import java.io.Serializable;
 import java.util.Arrays;
-import java.util.List;
 
-/**
- * Created by Administrator on 2017/1/9 0009.
- */
-
-public class PropertiesBean {
-
-    /**
-     * id : 9529
-     * goodsId : 0
-     * colorId : 7
-     * colorName : 白色
-     * colorCode : #ffffff
-     * colorImg :
-     * colorUrl : https://detail.tmall.com/item.htm?spm=a1z10.5-b.w4011-3609973698.66.6PtkVY&id=520971761592&rn=5ddf7aff64dbe1a24da0eaf7409e3389&abbucket=15&skuId=3104519239252
-     * albums : []
-     */
+public class PropertiesBean implements Serializable {
 
     private int id;
     private int goodsId;
@@ -28,10 +13,6 @@ public class PropertiesBean {
     private String colorImg;
     private String colorUrl;
     private AlbumsBean[] albums;
-
-    public PropertiesBean() {
-        super();
-    }
 
     public int getId() {
         return id;

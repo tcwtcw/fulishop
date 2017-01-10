@@ -1,22 +1,14 @@
 package cn.ucai.fulishop.bean;
 
-/**
- * Created by Administrator on 2017/1/9 0009.
- */
-
 public class MessageBean {
 
     /**
      * success : true
-     * msg : 收藏成功
+     * msg : 添加收藏成功
      */
 
     private boolean success;
     private String msg;
-
-    public MessageBean() {
-        super();
-    }
 
     public boolean isSuccess() {
         return success;

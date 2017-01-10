@@ -1,29 +1,22 @@
 package cn.ucai.fulishop.bean;
 
-/**
- * Created by Administrator on 2017/1/9 0009.
- */
+import java.io.Serializable;
 
-public class BoutiqueBean {
+public class BoutiqueBean implements Serializable {
 
     /**
-     * id : 265
-     * title : 刘亦菲女神款，拥有它你就是明星！
-     * description : 复合水+天然植物提取精华，令肌肤水分充足，水嫩盈润！
-     * name : 金牌百搭精华，秒杀缺水肌！
-     * imageurl : cat_image/boutique4.png
+     * id : 262
+     * title : 不一样的新妆，不一样的美丽
+     * description : 快速增长修护预防脱发洗发水让头发健康快速生长更美丽
+     * name : 拯救头发，美丽新妆
+     * imageurl : cat_image/boutique1.jpg
      */
-
 
     private int id;
     private String title;
     private String description;
     private String name;
     private String imageurl;
-
-    public BoutiqueBean() {
-        super();
-    }
 
     public int getId() {
         return id;

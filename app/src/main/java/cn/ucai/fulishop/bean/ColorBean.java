@@ -1,17 +1,15 @@
 package cn.ucai.fulishop.bean;
 
-/**
- * Created by Administrator on 2017/1/9 0009.
- */
+import java.io.Serializable;
 
-public class ColorBean {
+public class ColorBean implements Serializable {
 
     /**
-     * catId : 8514
-     * colorId : 4
-     * colorName : 绿色
-     * colorCode : #59d85c
-     * colorImg : 201309/1380064997570506166.jpg
+     * catId : 262
+     * colorId : 1
+     * colorName : 灰色
+     * colorCode : #959595
+     * colorImg : 121.197.1.20/images/201309/1380064809234134935.jpg
      */
 
     private int catId;
@@ -19,10 +17,6 @@ public class ColorBean {
     private String colorName;
     private String colorCode;
     private String colorImg;
-
-    public ColorBean() {
-        super();
-    }
 
     public int getCatId() {
         return catId;
