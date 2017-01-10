@@ -1,14 +1,27 @@
 package cn.ucai.fulishop;
 
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.RadioButton;
 
+import butterknife.BindView;
+import butterknife.ButterKnife;
+
+
 public class MainActivity extends AppCompatActivity {
-    RadioButton rbNewGoods, rbBoutique, rbCategory, rbCart, rbPersonal;
     RadioButton[] rbs = new RadioButton[5];
     int index, currentIndex;
+    @BindView(R.id.rb_NewsGood)
+    RadioButton rbNewsGood;
+    @BindView(R.id.rb_Boutique)
+    RadioButton rbBoutique;
+    @BindView(R.id.rb_Category)
+    RadioButton rbCategory;
+    @BindView(R.id.rb_Cart)
+    RadioButton rbCart;
+    @BindView(R.id.rb_Personal)
+    RadioButton rbPersonal;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -18,13 +31,8 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void initView() {
-        rbNewGoods = (RadioButton) findViewById(R.id.rb_NewsGood);
-        rbBoutique = (RadioButton) findViewById(R.id.rb_Boutique);
-        rbCategory = (RadioButton) findViewById(R.id.rb_Category);
-        rbCart = (RadioButton) findViewById(R.id.rb_Cart);
-        rbPersonal = (RadioButton) findViewById(R.id.rb_Personal);
-
-        rbs[0] = rbNewGoods;
+        ButterKnife.bind(this);
+        rbs[0] = rbNewsGood;
         rbs[1] = rbBoutique;
         rbs[2] = rbCategory;
         rbs[3] = rbCart;
@@ -52,10 +60,10 @@ public class MainActivity extends AppCompatActivity {
         if (index != currentIndex) {
             setRadioStatus();
         }
-
     }
+
     private void setRadioStatus() {
-        for (int i=0;i<rbs.length;i++) {
+        for (int i = 0; i < rbs.length; i++) {
             if (index != i) {
                 rbs[i].setChecked(false);
             } else {
