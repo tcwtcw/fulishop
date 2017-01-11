@@ -7,6 +7,7 @@ import android.widget.RadioButton;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import cn.ucai.fulishop.controller.fragment.NewGoodsFragment;
 
 
 public class MainActivity extends AppCompatActivity {
@@ -28,15 +29,19 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         initView();
+        getSupportFragmentManager().beginTransaction().add(R.id.fragment_container, new NewGoodsFragment())
+                .commit();
     }
 
     private void initView() {
+
         ButterKnife.bind(this);
         rbs[0] = rbNewsGood;
         rbs[1] = rbBoutique;
         rbs[2] = rbCategory;
         rbs[3] = rbCart;
         rbs[4] = rbPersonal;
+
     }
 
     public void onCheckedChange(View view) {

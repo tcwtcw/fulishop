@@ -9,7 +9,7 @@ import android.app.Application;
 public class FuLiShopApplication extends Application {
     private static FuLiShopApplication instance;
 
-    public FuLiShopApplication getInstance() {
+    public static FuLiShopApplication getInstance() {
         return instance;
     }
 
