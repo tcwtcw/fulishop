@@ -13,12 +13,14 @@ import java.util.ArrayList;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import butterknife.OnClick;
 import cn.ucai.fulishop.R;
 import cn.ucai.fulishop.application.I;
 import cn.ucai.fulishop.bean.BoutiqueBean;
 import cn.ucai.fulishop.controller.activity.BoutiqueChildActivity;
 import cn.ucai.fulishop.model.utils.ImageLoader;
 import cn.ucai.fulishop.view.FooterViewHolder;
+import cn.ucai.fulishop.view.MFGT;
 
 /**
  * Created by Administrator on 2017/1/11 0011.
@@ -57,8 +59,7 @@ public class BoutiqueAdapter extends RecyclerView.Adapter {
         vh.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                mContext.startActivity(new Intent(mContext, BoutiqueChildActivity.class)
-                        .putExtra(I.NewAndBoutiqueGoods.CAT_ID, mList.get(position).getId()));
+                MFGT.gotoBoutiqueChild(mContext,mList.get(position));
             }
         });
     }
@@ -106,5 +107,6 @@ public class BoutiqueAdapter extends RecyclerView.Adapter {
             super(view);
             ButterKnife.bind(this, view);
         }
+
     }
 }

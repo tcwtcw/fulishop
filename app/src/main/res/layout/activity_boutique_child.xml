@@ -17,6 +17,7 @@
             android:layout_width="25dp"
             android:layout_height="25dp" />
         <TextView
+            android:id="@+id/tv_common_title"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_toRightOf="@+id/back"
