@@ -1,6 +1,7 @@
 package cn.ucai.fulishop.controller.adapter;
 
 import android.content.Context;
+import android.content.Intent;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.view.ViewGroup;
@@ -15,6 +16,7 @@ import butterknife.ButterKnife;
 import cn.ucai.fulishop.R;
 import cn.ucai.fulishop.application.I;
 import cn.ucai.fulishop.bean.BoutiqueBean;
+import cn.ucai.fulishop.controller.activity.BoutiqueChildActivity;
 import cn.ucai.fulishop.model.utils.ImageLoader;
 import cn.ucai.fulishop.view.FooterViewHolder;
 
@@ -46,12 +48,19 @@ public class BoutiqueAdapter extends RecyclerView.Adapter {
     }
 
     @Override
-    public void onBindViewHolder(RecyclerView.ViewHolder holder, int position) {
+    public void onBindViewHolder(RecyclerView.ViewHolder holder, final int position) {
             BoutiqueViewHolder vh = (BoutiqueViewHolder) holder;
             ImageLoader.downloadImg(mContext, vh.mLvBoutiqueImg, mList.get(position).getImageurl());
             vh.mTvBoutiqueName.setText(mList.get(position).getName());
             vh.mTvBoutiqueTitle.setText(mList.get(position).getTitle());
             vh.mTvBoutiqueDescription.setText(mList.get(position).getDescription());
+        vh.itemView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                mContext.startActivity(new Intent(mContext, BoutiqueChildActivity.class)
+                        .putExtra(I.NewAndBoutiqueGoods.CAT_ID, mList.get(position).getId()));
+            }
+        });
     }
 
     @Override
