@@ -21,5 +21,11 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent">
         </android.support.v7.widget.RecyclerView>
+        <TextView
+            android:id="@+id/tvMore"
+            android:text="加载更多数据"
+            android:gravity="center"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent" />
     </LinearLayout>
 </android.support.v4.widget.SwipeRefreshLayout>
