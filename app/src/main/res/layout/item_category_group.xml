@@ -7,7 +7,7 @@
                 android:background="@drawable/divid_explist_group"
     >
 <ImageView
-    android:id="@+id/ivGroupThumb"
+    android:id="@+id/iv_Group_Thumb"
     android:layout_width="50dp"
     android:layout_height="50dp"
     android:layout_marginLeft="20dp"
@@ -16,8 +16,8 @@
     android:layout_centerVertical="true"
     />
     <TextView
-        android:id="@+id/tvGroupName"
-        android:layout_toRightOf="@+id/ivGroupThumb"
+        android:id="@+id/tv_group_name"
+        android:layout_toRightOf="@+id/iv_Group_Thumb"
         android:layout_marginLeft="20dp"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -27,7 +27,7 @@
         android:layout_centerVertical="true"
         />
     <ImageView
-        android:id="@+id/ivIndicator"
+        android:id="@+id/iv_indicator"
         android:layout_marginRight="20dp"
         android:layout_alignParentRight="true"
         android:layout_width="32dp"
