@@ -149,4 +149,8 @@ public class NewGoodsFragment extends Fragment {
         rv.setAdapter(mAdapter);
     }
 
+
+    public void sortGoods(int sortBy){
+        mAdapter.sortGoods(sortBy);
+    }
 }

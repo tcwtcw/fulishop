@@ -16,6 +16,7 @@ import cn.ucai.fulishop.R;
 import cn.ucai.fulishop.bean.CategoryChildBean;
 import cn.ucai.fulishop.bean.CategoryGroupBean;
 import cn.ucai.fulishop.model.utils.ImageLoader;
+import cn.ucai.fulishop.view.MFGT;
 
 /**
  * Created by Administrator on 2017/1/13 0013.
@@ -89,7 +90,7 @@ public class CategoryAdapter extends BaseExpandableListAdapter {
     }
 
     @Override
-    public View getChildView(int groupPosition, int childPosition, boolean isExpanded, View view, ViewGroup parent) {
+    public View getChildView(final int groupPosition, final int childPosition, boolean isExpanded, View view, ViewGroup parent) {
         ChildViewHolder vh = null;
         if (view == null) {
             view = View.inflate(context, R.layout.item_category_child, null);
@@ -100,6 +101,12 @@ public class CategoryAdapter extends BaseExpandableListAdapter {
         }
         ImageLoader.downloadImg(context,vh.ivCategoryChildThumb,getChild(groupPosition,childPosition).getImageUrl());
         vh.tvCategoryChildName.setText(getChild(groupPosition,childPosition).getName());
+        view.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                MFGT.gotoCategoryChild(context,mChildBean.get(groupPosition).get(childPosition).getId());
+            }
+        });
         return view;
     }
 

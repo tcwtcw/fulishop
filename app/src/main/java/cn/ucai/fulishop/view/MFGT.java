@@ -8,6 +8,7 @@ import cn.ucai.fulishop.R;
 import cn.ucai.fulishop.application.I;
 import cn.ucai.fulishop.bean.BoutiqueBean;
 import cn.ucai.fulishop.controller.activity.BoutiqueChildActivity;
+import cn.ucai.fulishop.controller.activity.CategoryChildActivity;
 import cn.ucai.fulishop.controller.activity.GoodsDetailsActivity;
 
 /**
@@ -39,5 +40,10 @@ public class MFGT {
         intent.putExtra(I.GoodsDetails.KEY_GOODS_ID,goodsId);
         startActivity((Activity) context,intent);
     }
+    public static void gotoCategoryChild(Context context, int catId) {
+        Intent intent = new Intent(context, CategoryChildActivity.class);
+        intent.putExtra(I.NewAndBoutiqueGoods.CAT_ID,catId);
+        startActivity((Activity)context,intent);
 
+}
 }
