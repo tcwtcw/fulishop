@@ -4,7 +4,6 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context="cn.ucai.fulishop.MainActivity">
-    -
 
     <LinearLayout
         android:id="@+id/main_bottom"
@@ -15,7 +14,7 @@
         android:orientation="horizontal">
 
         <RadioButton
-            android:id="@+id/rb_NewsGood"
+            android:id="@+id/layout_new_good"
             style="@style/menu_item_style"
             android:button="@null"
             android:checked="true"
@@ -24,7 +23,7 @@
             android:textColor="@color/main_botton_text_color" />
 
         <RadioButton
-            android:id="@+id/rb_Boutique"
+            android:id="@+id/layout_Boutique"
             style="@style/menu_item_style"
             android:button="@null"
             android:checked="false"
@@ -33,7 +32,7 @@
             android:textColor="@color/main_botton_text_color" />
 
         <RadioButton
-            android:id="@+id/rb_Category"
+            android:id="@+id/layout_Category"
             style="@style/menu_item_style"
             android:button="@null"
             android:checked="false"
@@ -44,7 +43,7 @@
         <RelativeLayout style="@style/style_menu_item">
 
             <RadioButton
-                android:id="@+id/rb_Cart"
+                android:id="@+id/layout_Cart"
                 style="@style/menu_item_style_cart"
                 android:button="@null"
                 android:checked="false"
@@ -63,7 +62,7 @@
         </RelativeLayout>
 
         <RadioButton
-            android:id="@+id/rb_Personal"
+            android:id="@+id/layout_Personal"
             style="@style/menu_item_style"
             android:button="@null"
             android:checked="false"
