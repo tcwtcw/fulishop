@@ -67,7 +67,7 @@
             android:button="@null"
             android:checked="false"
             android:drawableTop="@drawable/selector_menu_item_personal_center"
-            android:text="我"
+            android:text="个人中心"
             android:textColor="@color/main_botton_text_color" />
     </LinearLayout>
 

@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="cn.ucai.fulishop">
+          package="cn.ucai.fulishop">
 
     <uses-permission android:name="android.permission.INTERNET" />
 
@@ -21,7 +21,10 @@
         </activity>
         <activity android:name=".controller.activity.CategoryChildActivity"/>
         <activity android:name=".controller.activity.BoutiqueChildActivity" />
-        <activity android:name=".controller.activity.GoodsDetailsActivity"></activity>
+        <activity android:name=".controller.activity.LoginActivity"/>
+        <activity android:name=".controller.activity.RegisterActivity"/>
+        <activity android:name=".controller.activity.GoodsDetailsActivity">
+        </activity>
     </application>
 
 </manifest>
