@@ -1,8 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-                android:id="@+id/activity_category_child"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent">
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              android:id="@+id/activity_category_child"
+              android:layout_width="match_parent"
+              android:layout_height="match_parent"
+              android:orientation="vertical">
 
     <RelativeLayout
         android:id="@+id/layout_title"
@@ -10,7 +11,7 @@
         android:layout_height="45dp"
         >
 
-        <LinearLayout
+        <RelativeLayout
             android:id="@+id/backClickArea"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -22,19 +23,22 @@
             <ImageView
                 android:id="@+id/ivBack"
                 android:layout_width="wrap_content"
-                android:layout_height="25dp"
-                android:layout_gravity="center_vertical"
-                android:src="@drawable/back" />
-
-            <TextView
-                android:id="@+id/tv_common_title"
-                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center_vertical"
-                android:text="商品详情"
-                android:textColor="@color/black_deep"
-                android:textSize="18sp" />
-        </LinearLayout>
+                android:src="@drawable/back"/>
+
+            <cn.ucai.fulishop.view.CatFilterButton
+                android:id="@+id/cat_filter"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="@null"
+                android:drawableRight="@drawable/arrow2_up"
+                android:text="分类"
+                android:layout_centerVertical="true"
+                android:layout_centerHorizontal="true"
+                android:textColor="@color/btn_white_normal"
+                />
+        </RelativeLayout>
 
     </RelativeLayout>
 
@@ -54,7 +58,7 @@
             android:drawableRight="@drawable/arrow_order_down"
             android:padding="5dp"
             android:text="价格"
-            android:textColor="#000" />
+            android:textColor="#000"/>
 
         <Button
             android:id="@+id/btn_sort_addtime"
@@ -65,12 +69,12 @@
             android:drawableRight="@drawable/arrow_order_down"
             android:padding="5dp"
             android:text="上架时间"
-            android:textColor="#000" />
+            android:textColor="#000"/>
     </LinearLayout>
 
     <FrameLayout
         android:id="@+id/fragment_container1"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_below="@id/layout_sort" />
-</RelativeLayout>
+        android:layout_below="@id/layout_sort"/>
+</LinearLayout>
