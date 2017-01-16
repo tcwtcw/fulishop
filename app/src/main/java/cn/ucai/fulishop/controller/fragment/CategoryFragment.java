@@ -54,6 +54,7 @@ public class CategoryFragment extends Fragment {
 
         mAdapter = new CategoryAdapter(getContext(), mGroupBeen, mChildBean);
         mElvCategory.setAdapter(mAdapter);
+        mElvCategory.setGroupIndicator(null);
         initView(false);
         initData();
         return layout;
@@ -70,7 +71,7 @@ public class CategoryFragment extends Fragment {
                     mGroupBeen.addAll(list);
                     for (int i=0;i<list.size();i++) {
                         mChildBean.add(new ArrayList<CategoryChildBean>());
-                        dowanloadChildData(list.get(i).getId(),i);
+                        downloadChildData(list.get(i).getId(),i);
                     }
                 } else {
                     initView(false);
@@ -84,7 +85,7 @@ public class CategoryFragment extends Fragment {
         });
     }
 
-    private void dowanloadChildData(int id, final int index) {
+    private void downloadChildData(int id, final int index) {
         model.downData(getContext(), id, new OnCompleteListener<CategoryChildBean[]>() {
             @Override
             public void onSuccess(CategoryChildBean[] result) {
