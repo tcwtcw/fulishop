@@ -4,9 +4,12 @@ import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 
+import java.util.ArrayList;
+
 import cn.ucai.fulishop.R;
 import cn.ucai.fulishop.application.I;
 import cn.ucai.fulishop.bean.BoutiqueBean;
+import cn.ucai.fulishop.bean.CategoryChildBean;
 import cn.ucai.fulishop.controller.activity.BoutiqueChildActivity;
 import cn.ucai.fulishop.controller.activity.CategoryChildActivity;
 import cn.ucai.fulishop.controller.activity.GoodsDetailsActivity;
@@ -40,10 +43,11 @@ public class MFGT {
         intent.putExtra(I.GoodsDetails.KEY_GOODS_ID,goodsId);
         startActivity((Activity) context,intent);
     }
-    public static void gotoCategoryChild(Context context, int catId,String groupName) {
+    public static void gotoCategoryChild(Context context, int catId, String groupName, ArrayList<CategoryChildBean> list) {
         Intent intent = new Intent(context, CategoryChildActivity.class);
         intent.putExtra(I.NewAndBoutiqueGoods.CAT_ID,catId);
         intent.putExtra(I.CategoryGroup.NAME, groupName);
+        intent.putExtra(I.CategoryChild.DATA, list);
         startActivity((Activity)context,intent);
 
 }
