@@ -9,9 +9,11 @@ import android.widget.RadioButton;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import cn.ucai.fulishop.application.FuLiCenterApplication;
+import cn.ucai.fulishop.application.FuLiShopApplication;
 import cn.ucai.fulishop.controller.fragment.BoutiqueFragment;
 import cn.ucai.fulishop.controller.fragment.CategoryFragment;
 import cn.ucai.fulishop.controller.fragment.NewGoodsFragment;
+import cn.ucai.fulishop.controller.fragment.PersonalFragment;
 import cn.ucai.fulishop.view.MFGT;
 
 public class MainActivity extends AppCompatActivity {
@@ -32,6 +34,7 @@ public class MainActivity extends AppCompatActivity {
     NewGoodsFragment mNewGoodsFragment;
     BoutiqueFragment mBoutiqueFragment;
     CategoryFragment mCategoryFragment;
+    PersonalFragment mPersonalFragment;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -48,9 +51,11 @@ public class MainActivity extends AppCompatActivity {
         mNewGoodsFragment = new NewGoodsFragment();
         mBoutiqueFragment = new BoutiqueFragment();
         mCategoryFragment = new CategoryFragment();
+        mPersonalFragment = new PersonalFragment();
         mFragments[0] = mNewGoodsFragment;
         mFragments[1] = mBoutiqueFragment;
         mFragments[2] = mCategoryFragment;
+        mFragments[4] = mPersonalFragment;
         getSupportFragmentManager().beginTransaction()
                 .add(R.id.fragment_container, mNewGoodsFragment)
                 .add(R.id.fragment_container, mBoutiqueFragment)
@@ -77,7 +82,7 @@ public class MainActivity extends AppCompatActivity {
                 index=3;
                 break;
             case R.id.layout_Personal:
-                if (FuLiCenterApplication.getUser() == null) {
+                if (FuLiShopApplication.getUser() == null) {
                     MFGT.gotoLogin(this);
                 } else {
                     index=4;
