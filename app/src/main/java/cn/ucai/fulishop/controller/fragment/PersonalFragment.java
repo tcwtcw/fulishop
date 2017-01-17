@@ -48,7 +48,7 @@ public class PersonalFragment extends Fragment {
     }
 
     private void loadUserInfo(User user) {
-        ImageLoader.downloadImg(getContext(),mIvUserAvatar,user.getAvatarPath());
+        ImageLoader.setAvatar(ImageLoader.getAvatarUrl(user),getContext(),mIvUserAvatar);
         mTvUserName.setText(user.getMuserNick());
     }
 
