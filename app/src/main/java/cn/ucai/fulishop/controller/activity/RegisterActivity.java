@@ -18,6 +18,7 @@ import cn.ucai.fulishop.model.net.OnCompleteListener;
 import cn.ucai.fulishop.model.utils.CommonUtils;
 import cn.ucai.fulishop.model.utils.L;
 import cn.ucai.fulishop.model.utils.ResultUtils;
+import cn.ucai.fulishop.view.DisplayUtils;
 import cn.ucai.fulishop.view.MFGT;
 
 /**
@@ -41,21 +42,12 @@ public class RegisterActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_register);
         ButterKnife.bind(this);
+        DisplayUtils.initBackWithTitle(this,"用户注册");
     }
 
-    @OnClick({R.id.backClickArea, R.id.btn_register})
-    public void onClick(View view) {
-        switch (view.getId()) {
-            case R.id.backClickArea:
-                MFGT.finish(this);
-                break;
-            case R.id.btn_register:
-                checkInput();
-                break;
-        }
-    }
 
-    private void checkInput() {
+    @OnClick(R.id.btn_register)
+    public void checkInput() {
         String username = mUsername.getText().toString().trim();
         String usernick = mNick.getText().toString().trim();
         String password = mPassword.getText().toString().trim();
@@ -92,7 +84,7 @@ public class RegisterActivity extends AppCompatActivity {
             public void onSuccess(String s) {
                 if (s != null) {
                     Result result = ResultUtils.getResultFromJson(s, Result.class);
-                    L.e(TAG,"result="+result);
+                    L.e(TAG, "result=" + result);
                     if (result != null) {
                         if (result.isRetMsg()) {
                             CommonUtils.showLongToast(R.string.register_success);

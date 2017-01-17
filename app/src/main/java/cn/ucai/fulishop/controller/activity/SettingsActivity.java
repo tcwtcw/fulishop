@@ -13,6 +13,7 @@ import cn.ucai.fulishop.application.FuLiShopApplication;
 import cn.ucai.fulishop.bean.User;
 import cn.ucai.fulishop.model.net.SharePrefrenceUtils;
 import cn.ucai.fulishop.model.utils.ImageLoader;
+import cn.ucai.fulishop.view.DisplayUtils;
 import cn.ucai.fulishop.view.MFGT;
 
 public class SettingsActivity extends AppCompatActivity {
@@ -29,6 +30,7 @@ public class SettingsActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_settings);
         ButterKnife.bind(this);
+        DisplayUtils.initBackWithTitle(this,"设置");
         initData();
     }
 
