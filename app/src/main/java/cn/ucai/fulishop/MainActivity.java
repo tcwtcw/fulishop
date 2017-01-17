@@ -97,7 +97,8 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void setFragmentListener() {
-        getSupportFragmentManager().beginTransaction().show(mFragments[index])
+        getSupportFragmentManager().beginTransaction().add(R.id.fragment_container,mFragments[index])
+                .show(mFragments[index])
                 .hide(mFragments[currentIndex]).commit();
     }
 
