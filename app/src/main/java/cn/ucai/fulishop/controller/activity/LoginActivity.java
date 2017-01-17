@@ -14,6 +14,7 @@ import cn.ucai.fulishop.R;
 import cn.ucai.fulishop.application.I;
 import cn.ucai.fulishop.bean.Result;
 import cn.ucai.fulishop.bean.User;
+import cn.ucai.fulishop.model.dao.UserDao;
 import cn.ucai.fulishop.model.net.IModelUser;
 import cn.ucai.fulishop.model.net.ModelUser;
 import cn.ucai.fulishop.model.net.OnCompleteListener;
@@ -81,6 +82,8 @@ public class LoginActivity extends AppCompatActivity {
                     if (result != null) {
                         if (result.isRetMsg()) {
                             User user = (User) result.getRetData();
+                            boolean saveUser = UserDao.getInstance().savaUser(user);
+                            L.e(TAG,"savaUSer="+saveUser);
                             SharePrefrenceUtils.getInstance(LoginActivity.this).saveUser(user.getMuserName());
                             MFGT.finish(LoginActivity.this);
                         } else {
