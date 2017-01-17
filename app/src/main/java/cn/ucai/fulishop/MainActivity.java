@@ -123,6 +123,10 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onResume() {
         super.onResume();
+        if (index == 4 && FuLiShopApplication.getUser() == null) {
+            index = 0;
+        }
+        setFragmentListener();
         setRadioStatus();
     }
 
