@@ -12,14 +12,24 @@ import cn.ucai.fulishop.model.utils.OkHttpUtils;
 
 public class ModelUser implements  IModelUser {
     @Override
-    public void register(Context context, String username, String nickname, String password, OnCompleteListener<String> listener) {
+    public void register(Context context, String username, String usernick, String password, OnCompleteListener<String> listener) {
         OkHttpUtils<String> utils = new OkHttpUtils<>(context);
         utils.setRequestUrl(I.REQUEST_REGISTER)
                 .addParam(I.User.USER_NAME,username)
-                .addParam(I.User.NICK,nickname)
+                .addParam(I.User.NICK,usernick)
                 .addParam(I.User.PASSWORD, MD5.getMessageDigest(password))
                 .targetClass(String.class)
                 .post()
+                .execute(listener);
+    }
+
+    @Override
+    public void updataNick(Context context, String username, String usernick, OnCompleteListener<String> listener) {
+        OkHttpUtils<String> utils = new OkHttpUtils<>(context);
+        utils.setRequestUrl(I.REQUEST_UPDATE_USER_NICK)
+                .addParam(I.User.USER_NAME,username)
+                .addParam(I.User.NICK,usernick)
+                .targetClass(String.class)
                 .execute(listener);
     }
 

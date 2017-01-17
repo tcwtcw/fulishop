@@ -10,7 +10,7 @@ import cn.ucai.fulishop.bean.User;
  */
 
 public interface IModelUser {
-    void register(Context context, String username, String nickname, String password, OnCompleteListener<String> listener);
     void login(Context context, String username, String password, OnCompleteListener<String> listener);
-
+    void register(Context context, String username, String usernick, String password, OnCompleteListener<String> listener);
+    void updataNick(Context context, String username, String usernick, OnCompleteListener<String> listener);
 }
