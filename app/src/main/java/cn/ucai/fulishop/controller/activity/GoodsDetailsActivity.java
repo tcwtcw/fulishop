@@ -19,6 +19,7 @@ import cn.ucai.fulishop.bean.User;
 import cn.ucai.fulishop.model.net.IModelGoods;
 import cn.ucai.fulishop.model.net.ModelGoods;
 import cn.ucai.fulishop.model.net.OnCompleteListener;
+import cn.ucai.fulishop.model.utils.CommonUtils;
 import cn.ucai.fulishop.view.FlowIndicator;
 import cn.ucai.fulishop.view.MFGT;
 import cn.ucai.fulishop.view.SlideAutoLoopView;
@@ -125,9 +126,30 @@ public class GoodsDetailsActivity extends AppCompatActivity {
     public void  setCollectListener() {
         User user = FuLiShopApplication.getUser();
         if (user != null) {
+            setCollect(user);
         } else {
             MFGT.gotoLogin(this);
         }
+    }
+
+    private void setCollect(User user) {
+        model.setCollect(this, goodsId, user.getMuserName(),
+                isCollect ? I.ACTION_DELETE_COLLECT : I.ACTION_ADD_COLLECT,
+                new OnCompleteListener<MessageBean>() {
+                    @Override
+                    public void onSuccess(MessageBean result) {
+                        if (result != null && result.isSuccess()) {
+                            isCollect = !isCollect;
+                            setCollectStatus();
+                            CommonUtils.showLongToast(result.getMsg());
+                        }
+                    }
+
+                    @Override
+                    public void onError(String error) {
+
+                    }
+                });
     }
 
     private void setCollectStatus() {
@@ -159,4 +181,6 @@ public class GoodsDetailsActivity extends AppCompatActivity {
         }
 
     }
+
+
 }

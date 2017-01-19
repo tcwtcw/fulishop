@@ -44,7 +44,7 @@ public class PersonalFragment extends Fragment {
         if (user != null) {
             loadUserInfo(user);
         } else {
-            MFGT.gotoLogin(getActivity());
+            // MFGT.gotoLogin(getActivity());
         }
     }
 
