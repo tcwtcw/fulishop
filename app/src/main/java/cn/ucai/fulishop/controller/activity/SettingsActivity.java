@@ -15,7 +15,9 @@ import cn.ucai.fulishop.application.FuLiShopApplication;
 import cn.ucai.fulishop.application.I;
 import cn.ucai.fulishop.bean.User;
 import cn.ucai.fulishop.model.net.SharePrefrenceUtils;
+import cn.ucai.fulishop.model.utils.CommonUtils;
 import cn.ucai.fulishop.model.utils.ImageLoader;
+import cn.ucai.fulishop.model.utils.OnSetAvatarListener;
 import cn.ucai.fulishop.view.DisplayUtils;
 import cn.ucai.fulishop.view.MFGT;
 
@@ -27,6 +29,8 @@ public class SettingsActivity extends AppCompatActivity {
     TextView mTvUserProfileName;
     @BindView(R.id.tv_user_profile_nick)
     TextView mTvUserProfileNick;
+
+    OnSetAvatarListener mOnSetAvatarListener;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -64,12 +68,35 @@ public class SettingsActivity extends AppCompatActivity {
         MFGT.gotoUpDataNick(this);
         }
 
+    @OnClick(R.id.layout_user_profile_username)
+    public void onClickUserName(){
+        CommonUtils.showLongToast(R.string.username_connot_be_modify);
+    }
+
+    @OnClick(R.id.layout_user_profile_avatar)
+    public void onClickAvatar(){
+        mOnSetAvatarListener = new OnSetAvatarListener(this,
+                R.id.layout_user_profile_avatar,
+                FuLiShopApplication.getUser().getMuserName(),
+                I.AVATAR_TYPE_USER_PATH);
+    }
+
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
-        if (resultCode == RESULT_OK && requestCode == I.REQUEST_CODE_NICK) {
+        if (resultCode != RESULT_OK) {
+            return;
+        }if (requestCode == I.REQUEST_CODE_NICK) {
             mTvUserProfileNick.setText(FuLiShopApplication.getUser().getMuserNick());
+        } else if (requestCode == OnSetAvatarListener.REQUEST_CROP_PHOTO) {
+            uploadAvatar();
+        } else {
+            mOnSetAvatarListener.setAvatar(requestCode,data,mIvUserProfileAvatar);
         }
+    }
+
+    private void uploadAvatar() {
+
     }
 }
 

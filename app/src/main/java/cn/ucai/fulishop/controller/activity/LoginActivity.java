@@ -84,7 +84,7 @@ public class LoginActivity extends AppCompatActivity {
                         if (result.isRetMsg()) {
                             User user = (User) result.getRetData();
                             boolean saveUser = UserDao.getInstance().savaUser(user);
-                            L.e(TAG,"savaUSer="+saveUser);
+                            L.e(TAG,"savaUser="+saveUser);
                             if (saveUser) {
                                 SharePrefrenceUtils.getInstance(LoginActivity.this).saveUser(user.getMuserName());
                                 FuLiShopApplication.setUser(user);
