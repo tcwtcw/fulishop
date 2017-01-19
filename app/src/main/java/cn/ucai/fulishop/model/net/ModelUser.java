@@ -17,13 +17,13 @@ import cn.ucai.fulishop.model.utils.OkHttpUtils;
  * Created by Administrator on 2017/1/16 0016.
  */
 
-public class ModelUser implements  IModelUser {
+public class ModelUser implements IModelUser {
     @Override
     public void register(Context context, String username, String usernick, String password, OnCompleteListener<String> listener) {
         OkHttpUtils<String> utils = new OkHttpUtils<>(context);
         utils.setRequestUrl(I.REQUEST_REGISTER)
-                .addParam(I.User.USER_NAME,username)
-                .addParam(I.User.NICK,usernick)
+                .addParam(I.User.USER_NAME, username)
+                .addParam(I.User.NICK, usernick)
                 .addParam(I.User.PASSWORD, MD5.getMessageDigest(password))
                 .targetClass(String.class)
                 .post()
@@ -34,8 +34,8 @@ public class ModelUser implements  IModelUser {
     public void updataNick(Context context, String username, String usernick, OnCompleteListener<String> listener) {
         OkHttpUtils<String> utils = new OkHttpUtils<>(context);
         utils.setRequestUrl(I.REQUEST_UPDATE_USER_NICK)
-                .addParam(I.User.USER_NAME,username)
-                .addParam(I.User.NICK,usernick)
+                .addParam(I.User.USER_NAME, username)
+                .addParam(I.User.NICK, usernick)
                 .targetClass(String.class)
                 .execute(listener);
     }
@@ -44,8 +44,8 @@ public class ModelUser implements  IModelUser {
     public void uploadAvatar(Context context, String username, File file, OnCompleteListener<String> listener) {
         OkHttpUtils<String> utils = new OkHttpUtils<>(context);
         utils.setRequestUrl(I.REQUEST_UPDATE_AVATAR)
-                .addParam(I.NAME_OR_HXID,username)
-                .addParam(I.AVATAR_TYPE,I.AVATAR_TYPE_USER_PATH)
+                .addParam(I.NAME_OR_HXID, username)
+                .addParam(I.AVATAR_TYPE, I.AVATAR_TYPE_USER_PATH)
                 .addFile2(file)
                 .post()
                 .targetClass(String.class)
@@ -56,7 +56,7 @@ public class ModelUser implements  IModelUser {
     public void collecCount(Context context, String username, OnCompleteListener<MessageBean> listener) {
         OkHttpUtils<MessageBean> utils = new OkHttpUtils<>(context);
         utils.setRequestUrl(I.REQUEST_FIND_COLLECT_COUNT)
-                .addParam(I.Collect.USER_NAME,username)
+                .addParam(I.Collect.USER_NAME, username)
                 .targetClass(MessageBean.class)
                 .execute(listener);
     }
@@ -65,7 +65,7 @@ public class ModelUser implements  IModelUser {
     public void login(Context context, String username, String password, OnCompleteListener<String> listener) {
         OkHttpUtils<String> utils = new OkHttpUtils<>(context);
         utils.setRequestUrl(I.REQUEST_LOGIN)
-                .addParam(I.User.USER_NAME,username)
+                .addParam(I.User.USER_NAME, username)
                 .addParam(I.User.PASSWORD, MD5.getMessageDigest(password))
                 .targetClass(String.class)
                 .execute(listener);
@@ -75,9 +75,9 @@ public class ModelUser implements  IModelUser {
     public void getCollects(Context context, String username, int pageId, int pageSize, OnCompleteListener<CollectBean[]> listener) {
         OkHttpUtils<CollectBean[]> utils = new OkHttpUtils<>(context);
         utils.setRequestUrl(I.REQUEST_FIND_COLLECTS)
-                .addParam(I.Collect.USER_NAME,username)
-                .addParam(I.PAGE_ID,String.valueOf(pageId))
-                .addParam(I.PAGE_SIZE,String.valueOf(pageSize))
+                .addParam(I.Collect.USER_NAME, username)
+                .addParam(I.PAGE_ID, String.valueOf(pageId))
+                .addParam(I.PAGE_SIZE, String.valueOf(pageSize))
                 .targetClass(CollectBean[].class)
                 .execute(listener);
     }
@@ -86,7 +86,7 @@ public class ModelUser implements  IModelUser {
     public void getCart(Context context, String username, OnCompleteListener<CartBean[]> listener) {
         OkHttpUtils<CartBean[]> utils = new OkHttpUtils<>(context);
         utils.setRequestUrl(I.REQUEST_FIND_CARTS)
-                .addParam(I.Cart.USER_NAME,username)
+                .addParam(I.Cart.USER_NAME, username)
                 .targetClass(CartBean[].class)
                 .execute(listener);
     }
@@ -105,7 +105,7 @@ public class ModelUser implements  IModelUser {
     private void delCart(Context context, int cartId, OnCompleteListener<MessageBean> listener) {
         OkHttpUtils<MessageBean> utils = new OkHttpUtils<>(context);
         utils.setRequestUrl(I.REQUEST_DELETE_CART)
-                .addParam(I.Cart.ID,String.valueOf(cartId))
+                .addParam(I.Cart.ID, String.valueOf(cartId))
                 .targetClass(MessageBean.class)
                 .execute(listener);
     }
@@ -121,16 +121,15 @@ public class ModelUser implements  IModelUser {
     }
 
     @Override
-    public void upadteCart(Context context, int action, String username, int goodsId, int count, int cartId,OnCompleteListener<MessageBean> listener) {
-        if (FuLiShopApplication.getMyCartList().containsKey(goodsId)) {
-            if (action == I.ACTION_CART_DEL) {
-                delCart(context, cartId, listener);
-            } else {
-                updateCart(context,cartId,count,listener);
-            }
+    public void upadteCart(Context context, int action, String username, int goodsId, int count, int cartId, OnCompleteListener<MessageBean> listener) {
+        if (action == I.ACTION_CART_ADD) {
+            addCart(context, username, goodsId, 1, listener);
+        } else if (action == I.ACTION_CART_DEL) {
+            delCart(context, cartId, listener);
         } else {
-            addCart(context,username,goodsId,1,listener);
+            updateCart(context, cartId, count, listener);
         }
     }
-
 }
+
+

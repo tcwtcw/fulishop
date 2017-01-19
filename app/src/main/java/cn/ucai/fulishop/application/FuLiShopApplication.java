@@ -22,18 +22,13 @@ public class FuLiShopApplication extends Application {
         instance = this;
     }
 
+    private static User user;
+
     public static User getUser() {
         return user;
-    }
-    private static HashMap<Integer, CartBean> myCartList=new HashMap<>();
-
-    public static HashMap<Integer, CartBean> getMyCartList() {
-        return myCartList;
     }
 
     public static void setUser(User user) {
         FuLiShopApplication.user = user;
     }
-
-    private static User user;
 }

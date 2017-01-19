@@ -14,6 +14,7 @@ import cn.ucai.fulishop.application.FuLiCenterApplication;
 import cn.ucai.fulishop.application.FuLiShopApplication;
 import cn.ucai.fulishop.application.I;
 import cn.ucai.fulishop.controller.fragment.BoutiqueFragment;
+import cn.ucai.fulishop.controller.fragment.CartFragment;
 import cn.ucai.fulishop.controller.fragment.CategoryFragment;
 import cn.ucai.fulishop.controller.fragment.NewGoodsFragment;
 import cn.ucai.fulishop.controller.fragment.PersonalFragment;
@@ -38,6 +39,7 @@ public class MainActivity extends AppCompatActivity {
     NewGoodsFragment mNewGoodsFragment;
     BoutiqueFragment mBoutiqueFragment;
     CategoryFragment mCategoryFragment;
+    CartFragment mCartFragment;
     PersonalFragment mPersonalFragment;
 
     @Override
@@ -56,9 +58,11 @@ public class MainActivity extends AppCompatActivity {
         mBoutiqueFragment = new BoutiqueFragment();
         mCategoryFragment = new CategoryFragment();
         mPersonalFragment = new PersonalFragment();
+        mCartFragment = new CartFragment();
         mFragments[0] = mNewGoodsFragment;
         mFragments[1] = mBoutiqueFragment;
         mFragments[2] = mCategoryFragment;
+        mFragments[3] = mCartFragment;
         mFragments[4] = mPersonalFragment;
         getSupportFragmentManager().beginTransaction()
                 .add(R.id.fragment_container, mNewGoodsFragment)
@@ -74,22 +78,26 @@ public class MainActivity extends AppCompatActivity {
     public void onCheckedChange(View view) {
         switch (view.getId()) {
             case R.id.layout_new_good:
-                index=0;
+                index = 0;
                 break;
             case R.id.layout_Boutique:
-                index=1;
+                index = 1;
                 break;
             case R.id.layout_Category:
-                index=2;
+                index = 2;
                 break;
             case R.id.layout_Cart:
-                index=3;
+                if (FuLiShopApplication.getUser() == null) {
+                    MFGT.gotoLogin(this, I.REQUEST_CODE_LOGIN_FROM_CART);
+                } else {
+                    index = 3;
+                }
                 break;
             case R.id.layout_Personal:
                 if (FuLiShopApplication.getUser() == null) {
                     MFGT.gotoLogin(this);
                 } else {
-                    index=4;
+                    index = 4;
                 }
                 break;
         }
@@ -110,7 +118,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void setRadioStatus() {
-        for(int i=0;i<rbs.length;i++) {
+        for (int i = 0; i < rbs.length; i++) {
             if (index != i) {
                 rbs[i].setChecked(false);
             } else {
@@ -133,8 +141,13 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
-        if (requestCode == RESULT_OK && requestCode == I.REQUEST_CODE_LOGIN) {
-            index = 4;
+        if (resultCode == RESULT_OK) {
+            if (requestCode == RESULT_OK && requestCode == I.REQUEST_CODE_LOGIN) {
+                index = 4;
+            }
+            if (requestCode == I.REQUEST_CODE_LOGIN_FROM_CART) {
+                index = 3;
+            }
             setFragmentListener();
             setRadioStatus();
         }

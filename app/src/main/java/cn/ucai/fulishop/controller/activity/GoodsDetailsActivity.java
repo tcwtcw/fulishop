@@ -200,20 +200,25 @@ public class GoodsDetailsActivity extends AppCompatActivity {
     @OnClick(R.id.iv_good_cart)
     public void addCart() {
         User user = FuLiShopApplication.getUser();
-        userModel = new ModelUser();
-        userModel.upadteCart(this, I.ACTION_CART_ADD, user.getMuserName(), goodsId, 1, 0, new OnCompleteListener<MessageBean>() {
-            @Override
-            public void onSuccess(MessageBean result) {
-                if (result != null && result.isSuccess()) {
+        if (user != null) {
+
+            userModel = new ModelUser();
+            userModel.upadteCart(this, I.ACTION_CART_ADD, user.getMuserName(), goodsId, 1, 0, new OnCompleteListener<MessageBean>() {
+                @Override
+                public void onSuccess(MessageBean result) {
+                    if (result != null && result.isSuccess()) {
 //                    FuLiShopApplication.getMyCartList().put(goodsId, null);
-                    CommonUtils.showLongToast(R.string.add_goods_success);
+                        CommonUtils.showLongToast(R.string.add_goods_success);
+                    }
                 }
-            }
 
-            @Override
-            public void onError(String error) {
+                @Override
+                public void onError(String error) {
 
-            }
-        });
-    }
+                }
+            });
+        } else {
+            MFGT.gotoLogin(this);
+        }
+        }
 }
