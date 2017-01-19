@@ -1,6 +1,7 @@
 package cn.ucai.fulishop.controller.activity;
 
 import android.content.Intent;
+import android.icu.text.UnicodeSet;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
@@ -19,7 +20,9 @@ import cn.ucai.fulishop.bean.GoodsDetailsBean;
 import cn.ucai.fulishop.bean.MessageBean;
 import cn.ucai.fulishop.bean.User;
 import cn.ucai.fulishop.model.net.IModelGoods;
+import cn.ucai.fulishop.model.net.IModelUser;
 import cn.ucai.fulishop.model.net.ModelGoods;
+import cn.ucai.fulishop.model.net.ModelUser;
 import cn.ucai.fulishop.model.net.OnCompleteListener;
 import cn.ucai.fulishop.model.utils.CommonUtils;
 import cn.ucai.fulishop.model.utils.L;
@@ -31,6 +34,8 @@ public class GoodsDetailsActivity extends AppCompatActivity {
     private static final String TAG = GoodsDetailsActivity.class.getSimpleName();
     int goodsId = 0;
     IModelGoods model;
+    IModelUser userModel;
+
     @BindView(R.id.tv_good_name_english)
     TextView mTvGoodNameEnglish;
     @BindView(R.id.tv_good_name)
@@ -191,5 +196,24 @@ public class GoodsDetailsActivity extends AppCompatActivity {
                 }
             });
         }
+    }
+    @OnClick(R.id.iv_good_cart)
+    public void addCart() {
+        User user = FuLiShopApplication.getUser();
+        userModel = new ModelUser();
+        userModel.upadteCart(this, I.ACTION_CART_ADD, user.getMuserName(), goodsId, 1, 0, new OnCompleteListener<MessageBean>() {
+            @Override
+            public void onSuccess(MessageBean result) {
+                if (result != null && result.isSuccess()) {
+//                    FuLiShopApplication.getMyCartList().put(goodsId, null);
+                    CommonUtils.showLongToast(R.string.add_goods_success);
+                }
+            }
+
+            @Override
+            public void onError(String error) {
+
+            }
+        });
     }
 }
