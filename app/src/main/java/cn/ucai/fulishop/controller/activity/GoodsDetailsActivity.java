@@ -1,6 +1,7 @@
 package cn.ucai.fulishop.controller.activity;
 
 import android.os.Bundle;
+import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
 import android.webkit.WebView;
 import android.widget.ImageView;
@@ -20,11 +21,13 @@ import cn.ucai.fulishop.model.net.IModelGoods;
 import cn.ucai.fulishop.model.net.ModelGoods;
 import cn.ucai.fulishop.model.net.OnCompleteListener;
 import cn.ucai.fulishop.model.utils.CommonUtils;
+import cn.ucai.fulishop.model.utils.L;
 import cn.ucai.fulishop.view.FlowIndicator;
 import cn.ucai.fulishop.view.MFGT;
 import cn.ucai.fulishop.view.SlideAutoLoopView;
 
 public class GoodsDetailsActivity extends AppCompatActivity {
+    private static final String TAG = GoodsDetailsActivity.class.getSimpleName();
     int goodsId = 0;
     IModelGoods model;
     @BindView(R.id.tv_good_name_english)
@@ -47,7 +50,7 @@ public class GoodsDetailsActivity extends AppCompatActivity {
     ImageView mIvGoodCollect;
 
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
+    protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_goods_details);
         ButterKnife.bind(this);
@@ -73,7 +76,7 @@ public class GoodsDetailsActivity extends AppCompatActivity {
 
             @Override
             public void onError(String error) {
-
+                L.e(TAG, "error=" + error);
             }
         });
     }
@@ -83,20 +86,20 @@ public class GoodsDetailsActivity extends AppCompatActivity {
         mTvGoodNameEnglish.setText(goods.getGoodsEnglishName());
         mTvGoodPriceCurrent.setText(goods.getCurrencyPrice());
         mTvGoodPriceShop.setText(goods.getShopPrice());
-
         mSalv.startPlayLoop(mIndicator, getAlbumUrl(goods), getAlbumCount(goods));
         mWvGoodBrief.loadDataWithBaseURL(null, goods.getGoodsBrief(), I.TEXT_HTML, I.UTF_8, null);
+
     }
 
     private int getAlbumCount(GoodsDetailsBean goods) {
-        if (goods != null & goods.getProperties() != null & goods.getProperties().length > 0) {
+        if (goods != null && goods.getProperties() != null && goods.getProperties().length > 0) {
             return goods.getProperties()[0].getAlbums().length;
         }
         return 0;
     }
 
     private String[] getAlbumUrl(GoodsDetailsBean goods) {
-        if (goods != null & goods.getProperties() != null & goods.getProperties().length > 0) {
+        if (goods != null && goods.getProperties() != null && goods.getProperties().length > 0) {
             AlbumsBean[] albums = goods.getProperties()[0].getAlbums();
             if (albums != null && albums.length > 0) {
                 String[] urls = new String[albums.length];
@@ -109,7 +112,6 @@ public class GoodsDetailsActivity extends AppCompatActivity {
         return new String[0];
     }
 
-
     @OnClick(R.id.backClickArea)
     public void onClick() {
         MFGT.finish(this);
@@ -119,16 +121,17 @@ public class GoodsDetailsActivity extends AppCompatActivity {
     protected void onResume() {
         super.onResume();
         initCollectStatus();
-        setCollectStatus();
     }
 
     @OnClick(R.id.iv_good_collect)
-    public void  setCollectListener() {
+    public void setCollectListener(){
+        mIvGoodCollect.setEnabled(false);
         User user = FuLiShopApplication.getUser();
         if (user != null) {
             setCollect(user);
-        } else {
+        }else{
             MFGT.gotoLogin(this);
+            mIvGoodCollect.setEnabled(true);
         }
     }
 
@@ -138,7 +141,7 @@ public class GoodsDetailsActivity extends AppCompatActivity {
                 new OnCompleteListener<MessageBean>() {
                     @Override
                     public void onSuccess(MessageBean result) {
-                        if (result != null && result.isSuccess()) {
+                        if (result!=null && result.isSuccess()){
                             isCollect = !isCollect;
                             setCollectStatus();
                             CommonUtils.showLongToast(result.getMsg());
@@ -147,40 +150,43 @@ public class GoodsDetailsActivity extends AppCompatActivity {
 
                     @Override
                     public void onError(String error) {
+                        mIvGoodCollect.setEnabled(true);
 
                     }
                 });
     }
 
     private void setCollectStatus() {
-        if (isCollect) {
+        if (isCollect){
             mIvGoodCollect.setImageResource(R.mipmap.bg_collect_out);
-        } else {
+        }else{
             mIvGoodCollect.setImageResource(R.mipmap.bg_collect_in);
         }
+        mIvGoodCollect.setEnabled(true);
     }
 
     private void initCollectStatus() {
+        mIvGoodCollect.setEnabled(false);
         User user = FuLiShopApplication.getUser();
         if (user != null) {
             model.isCollect(this, goodsId, user.getMuserName(), new OnCompleteListener<MessageBean>() {
                 @Override
                 public void onSuccess(MessageBean result) {
+                    L.e(TAG,"result="+result);
                     if (result != null && result.isSuccess()) {
                         isCollect = true;
                     } else {
                         isCollect = false;
                     }
+                    setCollectStatus();
                 }
 
                 @Override
                 public void onError(String error) {
                     isCollect = false;
+                    setCollectStatus();
                 }
             });
         }
-
     }
-
-
 }
