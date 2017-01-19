@@ -3,6 +3,7 @@ package cn.ucai.fulishop.model.net;
 import android.content.Context;
 
 import cn.ucai.fulishop.bean.GoodsDetailsBean;
+import cn.ucai.fulishop.bean.MessageBean;
 import cn.ucai.fulishop.bean.NewGoodsBean;
 
 /**
@@ -10,6 +11,7 @@ import cn.ucai.fulishop.bean.NewGoodsBean;
  */
 
 public interface IModelGoods {
-    public void downData(Context context,int goodsId, OnCompleteListener<GoodsDetailsBean> listener);
+    void downData(Context context, int goodsId, OnCompleteListener<GoodsDetailsBean> listener);
 
+    void isCollect(Context context, int goodsId, String username, OnCompleteListener<MessageBean> listener);
 }
