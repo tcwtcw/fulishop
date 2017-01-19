@@ -19,6 +19,7 @@
                 <category android:name="android.intent.category.LAUNCHER"/>
             </intent-filter>
         </activity>
+        <activity android:name=".controller.activity.UpdataNickActivity"/>
         <activity android:name=".controller.activity.CategoryChildActivity"/>
         <activity android:name=".controller.activity.BoutiqueChildActivity"/>
         <activity android:name=".controller.activity.LoginActivity"/>

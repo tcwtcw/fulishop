@@ -17,6 +17,7 @@ import cn.ucai.fulishop.controller.activity.GoodsDetailsActivity;
 import cn.ucai.fulishop.controller.activity.LoginActivity;
 import cn.ucai.fulishop.controller.activity.RegisterActivity;
 import cn.ucai.fulishop.controller.activity.SettingsActivity;
+import cn.ucai.fulishop.controller.activity.UpdataNickActivity;
 
 /**
  * Created by Administrator on 2017/1/10 0010.
@@ -66,5 +67,9 @@ public class MFGT {
 
     public static void gotoSettings(FragmentActivity activity) {
         startActivity(activity, SettingsActivity.class);
+    }
+
+    public static void gotoUpDataNick(Activity activity) {
+        activity.startActivityForResult(new Intent(activity,UpdataNickActivity.class),I.REQUEST_CODE_NICK);
     }
 }

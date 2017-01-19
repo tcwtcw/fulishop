@@ -1,5 +1,6 @@
 package cn.ucai.fulishop.controller.activity;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.text.TextUtils;
@@ -11,6 +12,7 @@ import butterknife.ButterKnife;
 import butterknife.OnClick;
 import cn.ucai.fulishop.R;
 import cn.ucai.fulishop.application.FuLiShopApplication;
+import cn.ucai.fulishop.application.I;
 import cn.ucai.fulishop.bean.User;
 import cn.ucai.fulishop.model.net.SharePrefrenceUtils;
 import cn.ucai.fulishop.model.utils.ImageLoader;
@@ -59,9 +61,15 @@ public class SettingsActivity extends AppCompatActivity {
     }
     @OnClick (R.id.layout_user_profile_nickname)
     public void updateNick(){
-        String nick = mTvUserProfileNick.getText().toString().trim();
-        if (TextUtils.isEmpty(nick)) {
+        MFGT.gotoUpDataNick(this);
+        }
 
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if (resultCode == RESULT_OK && requestCode == I.REQUEST_CODE_NICK) {
+            mTvUserProfileNick.setText(FuLiShopApplication.getUser().getMuserNick());
         }
     }
 }
+
