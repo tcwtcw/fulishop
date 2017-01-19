@@ -5,7 +5,9 @@ import android.content.Context;
 import java.io.File;
 
 import cn.ucai.fulishop.application.I;
+import cn.ucai.fulishop.bean.CollectBean;
 import cn.ucai.fulishop.bean.MessageBean;
+import cn.ucai.fulishop.bean.NewGoodsBean;
 import cn.ucai.fulishop.model.utils.MD5;
 import cn.ucai.fulishop.model.utils.OkHttpUtils;
 
@@ -64,6 +66,17 @@ public class ModelUser implements  IModelUser {
                 .addParam(I.User.USER_NAME,username)
                 .addParam(I.User.PASSWORD, MD5.getMessageDigest(password))
                 .targetClass(String.class)
+                .execute(listener);
+    }
+
+    @Override
+    public void getCollects(Context context, String username, int pageId, int pageSize, OnCompleteListener<CollectBean[]> listener) {
+        OkHttpUtils<CollectBean[]> utils = new OkHttpUtils<>(context);
+        utils.setRequestUrl(I.REQUEST_FIND_COLLECTS)
+                .addParam(I.Collect.USER_NAME,username)
+                .addParam(I.PAGE_ID,String.valueOf(pageId))
+                .addParam(I.PAGE_SIZE,String.valueOf(pageSize))
+                .targetClass(CollectBean[].class)
                 .execute(listener);
     }
 }

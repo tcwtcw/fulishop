@@ -73,23 +73,23 @@ public class PersonalFragment extends Fragment {
         loadCollectCount("0");
     }
 
-    private void getCollectCount(){
+    private void getCollectCount() {
         model = new ModelUser();
         model.collecCount(getContext(), FuLiShopApplication.getUser().getMuserName(),
                 new OnCompleteListener<MessageBean>() {
                     @Override
                     public void onSuccess(MessageBean result) {
-                        L.e(TAG,"result="+result);
-                        if(result!=null && result.isSuccess()){
+                        L.e(TAG, "result=" + result);
+                        if (result != null && result.isSuccess()) {
                             loadCollectCount(result.getMsg());
-                        }else{
+                        } else {
                             loadCollectCount("0");
                         }
                     }
 
                     @Override
                     public void onError(String error) {
-                        L.e(TAG,"error="+error);
+                        L.e(TAG, "error=" + error);
                         loadCollectCount("0");
                     }
                 });
@@ -104,6 +104,9 @@ public class PersonalFragment extends Fragment {
         MFGT.gotoSettings(getActivity());
     }
 
-
+    @OnClick(R.id.layout_center_collect)
+    public void collects() {
+        MFGT.gotoCollects(getActivity());
+    }
 
 }
