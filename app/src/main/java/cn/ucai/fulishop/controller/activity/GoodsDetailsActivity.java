@@ -203,7 +203,7 @@ public class GoodsDetailsActivity extends AppCompatActivity {
         if (user != null) {
 
             userModel = new ModelUser();
-            userModel.upadteCart(this, I.ACTION_CART_ADD, user.getMuserName(), goodsId, 1, 0, new OnCompleteListener<MessageBean>() {
+            userModel.updateCart(this, I.ACTION_CART_ADD, user.getMuserName(), goodsId, 1, 0, new OnCompleteListener<MessageBean>() {
                 @Override
                 public void onSuccess(MessageBean result) {
                     if (result != null && result.isSuccess()) {

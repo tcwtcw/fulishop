@@ -121,7 +121,7 @@ public class ModelUser implements IModelUser {
     }
 
     @Override
-    public void upadteCart(Context context, int action, String username, int goodsId, int count, int cartId, OnCompleteListener<MessageBean> listener) {
+    public void updateCart(Context context, int action, String username, int goodsId, int count, int cartId, OnCompleteListener<MessageBean> listener) {
         if (action == I.ACTION_CART_ADD) {
             addCart(context, username, goodsId, 1, listener);
         } else if (action == I.ACTION_CART_DEL) {

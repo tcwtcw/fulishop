@@ -1,6 +1,10 @@
 package cn.ucai.fulishop.controller.fragment;
 
 
+import android.content.BroadcastReceiver;
+import android.content.Context;
+import android.content.Intent;
+import android.content.IntentFilter;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.widget.SwipeRefreshLayout;
@@ -20,6 +24,7 @@ import cn.ucai.fulishop.R;
 import cn.ucai.fulishop.application.FuLiShopApplication;
 import cn.ucai.fulishop.application.I;
 import cn.ucai.fulishop.bean.CartBean;
+import cn.ucai.fulishop.bean.GoodsDetailsBean;
 import cn.ucai.fulishop.bean.User;
 import cn.ucai.fulishop.controller.adapter.CartAdapter;
 import cn.ucai.fulishop.model.net.IModelUser;
@@ -48,6 +53,12 @@ public class CartFragment extends Fragment {
     User user;
     @BindView(R.id.tv_refresh)
     TextView mTvRefresh;
+    ArrayList<CartBean> cartList = new ArrayList<>();
+    @BindView(R.id.tv_cart_sum_price)
+    TextView mTvCartSumPrice;
+    @BindView(R.id.tv_cart_save_price)
+    TextView mTvCartSavePrice;
+    UpdateCartReceiver mReceiver;
 
     public CartFragment() {
         // Required empty public constructor
@@ -70,6 +81,13 @@ public class CartFragment extends Fragment {
 
     private void setListener() {
         setPullDownListener();
+        setReceiverListener();
+    }
+
+    private void setReceiverListener() {
+        mReceiver = new UpdateCartReceiver();
+        IntentFilter filter = new IntentFilter(I.BROADCAST_UPDATA_CART);
+        getContext().registerReceiver(mReceiver, filter);
     }
 
     private void setPullDownListener() {
@@ -95,6 +113,7 @@ public class CartFragment extends Fragment {
                     tv.setVisibility(View.GONE);
                     if (result != null && result.length > 0) {
                         ArrayList<CartBean> list = ConvertUtils.array2List(result);
+                        cartList.addAll(list);
                         if (action == I.ACTION_DOWNLOAD || action == I.ACTION_PULL_DOWN) {
                             mAdapter.initData(list);
                         } else {
@@ -127,7 +146,7 @@ public class CartFragment extends Fragment {
         rv.addItemDecoration(new SpaceItemDecoration(12));
         rv.setLayoutManager(gm);
         rv.setHasFixedSize(true);
-        mAdapter = new CartAdapter(getContext(), new ArrayList<CartBean>());
+        mAdapter = new CartAdapter(getContext(), cartList);
         rv.setAdapter(mAdapter);
         srl.setVisibility(View.GONE);
         tv.setVisibility(View.VISIBLE);
@@ -136,5 +155,51 @@ public class CartFragment extends Fragment {
     @OnClick(R.id.tv_nothing)
     public void onClick() {
         initData(I.ACTION_DOWNLOAD);
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        setPrice();
+    }
+
+    private void setPrice() {
+        int sumPrice = 0;
+        int savePrice = 0;
+        if (cartList != null && cartList.size() > 0) {
+            for (CartBean cart : cartList) {
+                GoodsDetailsBean goods = cart.getGoods();
+                if (cart.isChecked() && goods != null) {
+                    sumPrice += cart.getCount() * getPrice(goods.getCurrencyPrice());
+                    savePrice += cart.getCount() * (getPrice(goods.getCurrencyPrice()) - getPrice(goods.getRankPrice()));
+                }
+            }
+        }
+        mTvCartSumPrice.setText("合计：￥" + sumPrice);
+        mTvCartSavePrice.setText("节省: ￥" + savePrice);
+        mAdapter.notifyDataSetChanged();
+
+    }
+
+    int getPrice(String price) {
+        int p = 0;
+        p = Integer.valueOf(price.substring(price.indexOf("￥") + 1));
+        return p;
+    }
+
+    class UpdateCartReceiver extends BroadcastReceiver {
+
+        @Override
+        public void onReceive(Context context, Intent intent) {
+            setPrice();
+        }
+    }
+
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
+        if (mReceiver != null) {
+            getContext().unregisterReceiver(mReceiver);
+        }
     }
 }
