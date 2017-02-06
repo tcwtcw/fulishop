@@ -21,7 +21,7 @@ import cn.ucai.fulishop.application.FuLiShopApplication;
 import cn.ucai.fulishop.application.I;
 import cn.ucai.fulishop.bean.CartBean;
 import cn.ucai.fulishop.bean.User;
-import cn.ucai.fulishop.controller.adapter.BoutiqueAdapter;
+import cn.ucai.fulishop.controller.adapter.CartAdapter;
 import cn.ucai.fulishop.model.net.IModelUser;
 import cn.ucai.fulishop.model.net.ModelUser;
 import cn.ucai.fulishop.model.net.OnCompleteListener;
@@ -36,7 +36,7 @@ public class CartFragment extends Fragment {
 
     LinearLayoutManager gm;
 
-    BoutiqueAdapter mAdapter;
+    CartAdapter mAdapter;
     IModelUser mModel;
 
     @BindView(R.id.rv)
@@ -96,9 +96,9 @@ public class CartFragment extends Fragment {
                     if (result != null && result.length > 0) {
                         ArrayList<CartBean> list = ConvertUtils.array2List(result);
                         if (action == I.ACTION_DOWNLOAD || action == I.ACTION_PULL_DOWN) {
-//                            mAdapter.initData(list);
+                            mAdapter.initData(list);
                         } else {
-//                            mAdapter.addData(list);
+                            mAdapter.addData(list);
                         }
                     } else {
                         srl.setVisibility(View.GONE);
@@ -127,7 +127,7 @@ public class CartFragment extends Fragment {
         rv.addItemDecoration(new SpaceItemDecoration(12));
         rv.setLayoutManager(gm);
         rv.setHasFixedSize(true);
-        mAdapter = new BoutiqueAdapter(getContext(), null);
+        mAdapter = new CartAdapter(getContext(), new ArrayList<CartBean>());
         rv.setAdapter(mAdapter);
         srl.setVisibility(View.GONE);
         tv.setVisibility(View.VISIBLE);
