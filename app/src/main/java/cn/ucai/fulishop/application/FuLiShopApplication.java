@@ -4,6 +4,7 @@ import android.app.Application;
 
 import java.util.HashMap;
 
+import cn.sharesdk.framework.ShareSDK;
 import cn.ucai.fulishop.bean.CartBean;
 import cn.ucai.fulishop.bean.User;
 
@@ -20,6 +21,7 @@ public class FuLiShopApplication extends Application {
     public void onCreate() {
         super.onCreate();
         instance = this;
+        ShareSDK.initSDK(this);
     }
 
     private static User user;
