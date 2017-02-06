@@ -32,6 +32,7 @@ import cn.ucai.fulishop.model.net.ModelUser;
 import cn.ucai.fulishop.model.net.OnCompleteListener;
 import cn.ucai.fulishop.model.utils.CommonUtils;
 import cn.ucai.fulishop.model.utils.ConvertUtils;
+import cn.ucai.fulishop.view.MFGT;
 import cn.ucai.fulishop.view.SpaceItemDecoration;
 
 /**
@@ -59,6 +60,8 @@ public class CartFragment extends Fragment {
     @BindView(R.id.tv_cart_save_price)
     TextView mTvCartSavePrice;
     UpdateCartReceiver mReceiver;
+    int sumPrice = 0;
+    int payPrice = 0;
 
     public CartFragment() {
         // Required empty public constructor
@@ -164,7 +167,8 @@ public class CartFragment extends Fragment {
     }
 
     private void setPrice() {
-        int sumPrice = 0;
+        sumPrice = 0;
+        payPrice = 0;
         int savePrice = 0;
         if (cartList != null && cartList.size() > 0) {
             for (CartBean cart : cartList) {
@@ -178,7 +182,7 @@ public class CartFragment extends Fragment {
         mTvCartSumPrice.setText("合计：￥" + sumPrice);
         mTvCartSavePrice.setText("节省: ￥" + savePrice);
         mAdapter.notifyDataSetChanged();
-
+        payPrice = sumPrice - savePrice;
     }
 
     int getPrice(String price) {
@@ -194,6 +198,16 @@ public class CartFragment extends Fragment {
             setPrice();
         }
     }
+
+    @OnClick(R.id.tv_cart_buy)
+    public void onBuyClick() {
+        if (sumPrice > 0) {
+            MFGT.gotoOrder(getActivity(), payPrice);
+        } else {
+            CommonUtils.showLongToast(R.string.order_nothing);
+        }
+    }
+
 
     @Override
     public void onDestroy() {

@@ -31,6 +31,8 @@
         </activity>
         <activity android:name=".controller.activity.CollectsActivity">
         </activity>
+        <activity android:name=".controller.activity.OrderActivity">
+        </activity>
     </application>
 
 </manifest>
